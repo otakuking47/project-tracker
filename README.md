@@ -7,14 +7,16 @@ this is a tracker that will help me through my coding project. I always struggle
 ## Accomplishments
 
 - got the home screen with the project cards
-- the project card color changes depending on the last time touched > 7 days
 - made the project card pressable to show the detailed info of the project
 - can add new projects to the home screen
-- save the project data in local storage state 
+- save the project data in local storage state
+- add tasks to each indivitual task
 
 [x] Navigation
 [x] Persistence
 [x] Create Project
 [ ] Edit Project
-[ ] Progress updates
-[ ] Task system
+[x] Progress updates
+[x] Task system
+[x] Delete task function
+[] delete project function

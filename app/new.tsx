@@ -1,13 +1,24 @@
+//this allows me to create a new project
+
 import { View, Text, TextInput, Button } from "react-native";
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useRouter } from "expo-router";
 import { loadProjects, saveProjects } from "@/storage/projectStorage";
 import { Project } from "@/types/Project";
 import { todayISO } from "@/utils/date";
+import { useNavigation } from "@react-navigation/native";
+
 
 export default function NewProjectScreen(){
     const router = useRouter();
     const [title, setTitle] = useState("");
+    const navigation = useNavigation();
+    
+    useLayoutEffect(() => {
+      navigation.setOptions({
+        title: "New Project",
+      });
+    }, [navigation]);
 
     async function createProject() {
         if (!title.trim()) return;
@@ -39,6 +50,7 @@ export default function NewProjectScreen(){
                     borderWidth: 1,
                     padding: 10,
                     marginTop: 20,
+                    marginBottom: 20,
                     borderRadius: 6,
                 }}
             />

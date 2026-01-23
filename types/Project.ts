@@ -9,5 +9,5 @@ export type Project = {
     title: string;
     progress: number;
     lastTouchedAt: string;
-    tasks: []
+    tasks: Task[]
 };

@@ -1,29 +1,34 @@
+// this is the home screen that shows all projects
+
 import { Text, View, FlatList, Button } from "react-native";
 import { useRouter } from "expo-router";
 import ProjectCard from "@/components/projectCard";
 import { loadProjects, saveProjects, resetProjects } from "@/storage/projectStorage";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { Project } from "@/types/Project";
 import { useFocusEffect } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+import { HeaderTitle } from "@react-navigation/elements";
 
 export default function HomeScreen() {
   const router = useRouter();
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
+  const navigation = useNavigation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "My Projects",
+      HeaderTitleStyle: { fontSize: 24, fontWeight: "bold" },
+    });
+  }, [navigation]);
+
+  useFocusEffect(() => {
     loadProjects().then((item) =>{
       setProjects(item)
-      setLoaded(true) // this fucker is dangerous 
+      setLoaded(true) // this thing is dangerous 
     })
   })
-
-  // apperntly used for when screen regains focus
-  useFocusEffect(
-    useCallback(() => {
-      loadProjects().then(setProjects);
-    }, [])
-  );
 
   useEffect(() => {
     if (loaded) {
@@ -37,10 +42,6 @@ export default function HomeScreen() {
 
   return (
     <View style={{ flex:1, padding: 20, paddingBottom: 50,}}>
-      <Text style={{fontSize: 24, fontWeight: "bold", paddingBottom: 10}}>
-        My Project
-      </Text>
-
       <Button
         title="New Project"
         onPress={() => router.push("/new")}
