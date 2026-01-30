@@ -1,6 +1,6 @@
 // this is the home screen that shows all projects
 
-import { Text, View, FlatList, Button } from "react-native";
+import { Text, View, FlatList, Button, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import ProjectCard from "@/components/projectCard";
 import { loadProjects, saveProjects, resetProjects } from "@/storage/projectStorage";
@@ -8,7 +8,6 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import { Project } from "@/types/Project";
 import { useFocusEffect } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
-import { HeaderTitle } from "@react-navigation/elements";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -26,7 +25,7 @@ export default function HomeScreen() {
   useFocusEffect(() => {
     loadProjects().then((item) =>{
       setProjects(item)
-      setLoaded(true) // this thing is dangerous 
+      setLoaded(true)
     })
   })
 
@@ -51,7 +50,8 @@ export default function HomeScreen() {
         data={projects}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <ProjectCard
+          <View>
+            <ProjectCard
             title={item.title}
             progress={item.progress}
             lastTouchedAt={item.lastTouchedAt}
@@ -62,6 +62,19 @@ export default function HomeScreen() {
               })
             }
           />
+          <Pressable 
+            onPress={() => {
+              router.push({
+                pathname: "/new",
+                params: { id: item.id },
+              })
+            }}
+          >
+            <Text style={{fontSize: 16, padding: 8, backgroundColor: "#51547c", marginTop: 2, borderRadius: 4}}>
+              edit
+            </Text>
+          </Pressable>
+          </View>
         )}
       />
 

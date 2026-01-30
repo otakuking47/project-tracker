@@ -12,11 +12,19 @@ this is a tracker that will help me through my coding project. I always struggle
 - save the project data in local storage state
 - add tasks to each indivitual task
 
+---
+## TODOs
+
+### Functions
+
 [x] Navigation
 [x] Persistence
 [x] Create Project
-[ ] Edit Project
+[] Edit Project 
 [x] Progress updates
 [x] Task system
-[x] Delete task function
-[] delete project function
+[] Delete task & Project function
+
+### Styles
+
+[] dark mode
