@@ -3,7 +3,11 @@
 import { Text, View, FlatList, Button, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import ProjectCard from "@/components/projectCard";
-import { loadProjects, saveProjects, resetProjects } from "@/storage/projectStorage";
+import {
+  loadProjects,
+  saveProjects,
+  resetProjects,
+} from "@/storage/projectStorage";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { Project } from "@/types/Project";
 import { useFocusEffect } from "expo-router";
@@ -23,28 +27,25 @@ export default function HomeScreen() {
   }, [navigation]);
 
   useFocusEffect(() => {
-    loadProjects().then((item) =>{
-      setProjects(item)
-      setLoaded(true)
-    })
-  })
+    loadProjects().then((item) => {
+      setProjects(item);
+      setLoaded(true);
+    });
+  });
 
   useEffect(() => {
     if (loaded) {
-      saveProjects(projects)
+      saveProjects(projects);
     }
   }, [projects, loaded]);
 
   if (!loaded) {
-    return <Text style={{ paddingLeft:20 }}>Loading...</Text>
+    return <Text style={{ paddingLeft: 20 }}>Loading...</Text>;
   }
 
   return (
-    <View style={{ flex:1, padding: 20, paddingBottom: 50,}}>
-      <Button
-        title="New Project"
-        onPress={() => router.push("/new")}
-      />
+    <View style={{ flex: 1, padding: 20, paddingBottom: 50 }}>
+      <Button title="New Project" onPress={() => router.push("/new")} />
 
       <FlatList
         data={projects}
@@ -52,39 +53,53 @@ export default function HomeScreen() {
         renderItem={({ item }) => (
           <View>
             <ProjectCard
-            title={item.title}
-            progress={item.progress}
-            lastTouchedAt={item.lastTouchedAt}
-            onPress={() => 
-              router.push({
-                pathname: "/project/[id]",
-                params: { id: item.id },
-              })
-            }
-          />
-          <Pressable 
-            onPress={() => {
-              router.push({
-                pathname: "/new",
-                params: { id: item.id },
-              })
-            }}
-          >
-            <Text style={{fontSize: 16, padding: 8, backgroundColor: "#51547c", marginTop: 2, borderRadius: 4}}>
-              edit
-            </Text>
-          </Pressable>
+              title={item.title}
+              progress={item.progress}
+              lastTouchedAt={item.lastTouchedAt}
+              onPress={() =>
+                router.push({
+                  pathname: "/project/[id]",
+                  params: { id: item.id },
+                })
+              }
+            />
+            <Pressable
+              onPress={() => {
+                router.push({
+                  pathname: "/new",
+                  params: { id: item.id },
+                });
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  padding: 8,
+                  backgroundColor: "#51547c",
+                  marginTop: 2,
+                  borderRadius: 4,
+                }}
+              >
+                edit
+              </Text>
+            </Pressable>
           </View>
         )}
       />
-
-      {/* NUKE */}
+      
       <Button
         title="RESET ALL PROJECTS"
-        color="red"
+        // color="red"
         onPress={async () => {
           await resetProjects();
           setProjects([]);
+        }}
+      />
+      <Button
+        title="test base"
+        color='green'
+        onPress={() => {
+          router.push("/test");
         }}
       />
     </View>
