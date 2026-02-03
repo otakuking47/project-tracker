@@ -20,11 +20,20 @@ this is a tracker that will help me through my coding project. I always struggle
 [x] Navigation
 [x] Persistence
 [x] Create Project
-[] Edit Project 
+[x] Edit Project 
 [x] Progress updates
 [x] Task system
-[] Delete task & Project function
+[x] Delete task & Project function
 
 ### Styles
 
 [] dark mode
+
+## Future improvements
+
+[] Undo delete (snackbar)
+[] Drag to reorder tasks
+[] Archive projects instead of delete
+[] Sync to cloud (Firebase / Supabase)
+[] Context refactor
+[] Animations

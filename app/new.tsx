@@ -1,7 +1,7 @@
 //this allows me to create a new project
 
 import { View, Text, TextInput, Button } from "react-native";
-import { useState, useLayoutEffect, use } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useRouter } from "expo-router";
 import { loadProjects, saveProjects } from "@/storage/projectStorage";
 import { Project } from "@/types/Project";

@@ -3,11 +3,7 @@
 import { Text, View, FlatList, Button, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import ProjectCard from "@/components/projectCard";
-import {
-  loadProjects,
-  saveProjects,
-  resetProjects,
-} from "@/storage/projectStorage";
+import { loadProjects, saveProjects, resetProjects } from "@/storage/projectStorage";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { Project } from "@/types/Project";
 import { useFocusEffect } from "expo-router";
@@ -53,6 +49,7 @@ export default function HomeScreen() {
         renderItem={({ item }) => (
           <View>
             <ProjectCard
+              id={item.id}
               title={item.title}
               progress={item.progress}
               lastTouchedAt={item.lastTouchedAt}
@@ -62,46 +59,34 @@ export default function HomeScreen() {
                   params: { id: item.id },
                 })
               }
-            />
-            <Pressable
-              onPress={() => {
-                router.push({
-                  pathname: "/new",
-                  params: { id: item.id },
-                });
+              onDelete={ async (id) => {
+                const updated = projects.filter((p) => p.id !== id);
+                saveProjects(updated);
+                setProjects(updated);
               }}
-            >
-              <Text
-                style={{
-                  fontSize: 16,
-                  padding: 8,
-                  backgroundColor: "#51547c",
-                  marginTop: 2,
-                  borderRadius: 4,
-                }}
-              >
-                edit
-              </Text>
-            </Pressable>
+            />
           </View>
         )}
       />
-      
-      <Button
+
+      {/* <Button
         title="RESET ALL PROJECTS"
-        // color="red"
+        color="red"
         onPress={async () => {
           await resetProjects();
           setProjects([]);
         }}
-      />
-      <Button
+      /> */}
+
+      <View style={{padding:5}}></View>
+
+      {/* <Button
         title="test base"
-        color='green'
+        color="green"
         onPress={() => {
           router.push("/test");
         }}
-      />
+      /> */}
     </View>
   );
 }
